@@ -30,7 +30,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 public class TemaController {
 	
-	 @Autowired
+		@Autowired
 	    private TemaRepository temaRepository;
 	    
 	    @GetMapping
@@ -38,8 +38,13 @@ public class TemaController {
 	        return ResponseEntity.ok(temaRepository.findAll());
 	    }
 	    
+	    @GetMapping("/{id}")
+	    public ResponseEntity<Tema>getById(@PathVariable Long id){
+	        return temaRepository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+	    }
+	    
 	    @GetMapping("/tipo/{tipo}")
-	    public ResponseEntity<List<Tema>> getByTitle(@PathVariable 
+	    public ResponseEntity<List<Tema>> getByTipo(@PathVariable 
 	    String tipo){
 	        return ResponseEntity.ok(temaRepository
 	            .findAllByTipoContainingIgnoreCase(tipo));
