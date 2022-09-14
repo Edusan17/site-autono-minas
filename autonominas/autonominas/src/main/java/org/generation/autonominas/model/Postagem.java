@@ -11,75 +11,85 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "tb_postagens")
-
 public class Postagem {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @NotBlank(message = "O titulo é obrigatório!!!")
-    @Size(min = 5, max = 100, message = "O titulo deve conter no minimo 10 caracteres e no máximo 100")
-    private String titulo;
-
-    @NotBlank(message = "O conteúdo é obrigatório!!!")
-    @Size(min = 5, max = 1000, message = "O conteúdo deve conter no minimo 10 caracteres e no máximo 1000")
-    private String conteudo;
-
-    @UpdateTimestamp
-    private LocalDateTime data;
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id;
+	
+	@NotBlank(message = "O atributo título é Obrigatório!") 
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
+	private String titulo;
+	
+	@NotBlank(message = "O atributo texto é Obrigatório!")
+	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 1000 caracteres")
+	private String conteudo;
+	
+	@UpdateTimestamp
+	private LocalDateTime data;
 
     @ManyToOne
-    @JsonIgnoreProperties("postagem")
-    private Tema tema;
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
 
-	public long getId() {
-		return id;
-	}
+    @ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    /*Insira os Getters and Setters*/
 
-	public String getTitulo() {
-		return titulo;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getConteudo() {
-		return conteudo;
-	}
+    public String getTitulo() {
+        return this.titulo;
+    }
 
-	public void setConteudo(String conteudo) {
-		this.conteudo = conteudo;
-	}
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-	public LocalDateTime getData() {
-		return data;
-	}
+    public String getConteudo() {
+        return this.conteudo;
+    }
 
-	public void setData(LocalDateTime data) {
-		this.data = data;
-	}
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
+    }
 
-	public Tema getTema() {
-		return tema;
-	}
+    public LocalDateTime getData() {
+        return this.data;
+    }
 
-	public void setTema(Tema tema) {
-		this.tema = tema;
-	}
-    
+    public void setData(LocalDateTime data) {
+        this.data = data;
+    }
 
+    public Tema getTema() {
+        return this.tema;
+    }
 
-    
+    public void setTema(Tema tema) {
+        this.tema = tema;
+    }
+
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
 }
